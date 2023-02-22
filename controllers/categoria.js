@@ -3,14 +3,13 @@ const Categoria = require('../models/categoria');
 
 const getCategoria = async (req = request, res = response) => {
 
-    const query = { estado: true };
+    const query = true ;
     const listaCategoria = await Promise.all([
-        Categoria.countDocuments(query),
-        Categoria.find(query),
+        Categoria.countDocuments(query)
     ]);
     res.json({
-        msg: 'GET Api de categoria',
-        listaCategoria
+        msg: 'Get api de categoria',
+        listaCategoria: listaCategoria
     });
 
 }
@@ -18,12 +17,12 @@ const getCategoria = async (req = request, res = response) => {
 const postCategoria = async (req = request, res = response) => {
 
     const { marca, modelo, descripcion, gama } = req.body;
-    const categoriaDB = new Categoria({ marca, modelo, descripcion, gama });
+    const CategoriaDB = new Categoria({ marca, modelo, descripcion, gama });
 
-    await categoriaDB.save();
+    await CategoriaDB.save();
     res.json({
-        msg: 'POST Api de categoria',
-        categoriaDB
+        msg: 'Post api de categoria',
+        categoriaDB: CategoriaDB
     });
 
 }
@@ -34,8 +33,8 @@ const putCategoria = async (req = request, res = response) => {
     const { _id, estado, ...resto } = req.body;
     const categoriaEditada = await Categoria.findByIdAndUpdate(id, resto)
     res.json({
-        msg: 'PUT Api de categoria',
-        categoriaEditada
+        msg: 'Put api de categoria',
+        categoriaEditada: categoriaEditada
     });
 
 }
@@ -48,15 +47,15 @@ const deleteCategoria = async (req = request, res = response) => {
     const categoriaEliminada = await Categoria.findByIdAndDelete(id)
 
     res.json({
-        msg: 'DELETE Api de Categoria',
-        categoriaEliminada
+        msg: 'Delete api de categoria',
+        categoriaEliminada: categoriaEliminada
     });
 
 }
 
 module.exports = {
-    getCategoria,
-    postCategoria,
-    putCategoria,
-    deleteCategoria
+     getCategoria,
+     postCategoria,
+     putCategoria,
+     deleteCategoria
 }
